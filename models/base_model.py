@@ -1,18 +1,12 @@
 #!/usr/bin/python3
-<<<<<<< HEAD
 
 import models
 from uuid import uuid4
 from datetime import datetime
-=======
-from uuid import uuid4
-from json import dumps
->>>>>>> c3ab1127958e4ddde59d04994f32256294523fa0
 
 
 class BaseModel:
 
-<<<<<<< HEAD
     def __init__(self, *args, **kwargs):
         timeformat = "%Y-%m-%dT%H:%M:%S.%f"
         self.id = str(uuid4())
@@ -41,10 +35,3 @@ class BaseModel:
     def __str__(self):
         class_name = self.__class__.__name__
         return "[{}] ({}) {}".format(class_name, self.id, self.__dict__)
-=======
-    def __init__(self):
-        """Initialize instances
-        of basemodel class"""
-        self.id = str(uuid4())
-        self.created_at
->>>>>>> c3ab1127958e4ddde59d04994f32256294523fa0
