@@ -1,20 +1,17 @@
 #!/usr/bin/python3
 import cmd
-"""Console to
-manage
-hbnb data
-"""
-
-
 class HBNBCommand(cmd.Cmd):
     prompt = '(hbnb) '
+    file = None
 
     def do_quit(self, line):
-        """Exits the shell"""
+        """Quits
+        the shell"""
         return True
 
     def do_EOF(self, line):
-        """Exit the shell"""
+        """Quits
+        the sehll"""
         return True
 
 if __name__ == '__main__':
