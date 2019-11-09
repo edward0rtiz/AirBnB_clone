@@ -6,9 +6,7 @@ the amenity"""
 
 
 class Amenity(BaseModel):
-
-    def __init__(self,):
-        """Initialize amenity class
-        instance
-        of basemodel class"""
-        name = ''
+    """Initialize amenity class
+    instance
+    of basemodel class"""
+    name = ''
