@@ -82,6 +82,5 @@ class HBNBCommand(cmd.Cmd):
             del obj_dict["{}.{}".format(arg[0], arg[1])]
             storage.save()
 
-
 if __name__ == '__main__':
     HBNBCommand().cmdloop()
