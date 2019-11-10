@@ -2,7 +2,6 @@
 
 import os.path
 import json
-from models.base_model import BaseModel
 
 class FileStorage:
 
@@ -14,19 +13,20 @@ class FileStorage:
         return FileStorage.__objects
 
     def new(self, obj):
-        FSobjdict = FileStorage.__objects
+        FSobjdict = self.__objects
         object_name = obj.__class__.__name__
         FSobjdict["{}. {}".format(object_name, obj.id)] = obj
 
     def save(self):
-        FSobjdict = FileStorage.__objects
+        FSobjdict = self.__objects
         obj_dict = {obj: FSobjdict[obj].to_dict() for obj in FSobjdict.keys()}
-        with open(FileStorage.__file_path, "w") as f:
+        with open(self.__file_path, "w") as f:
             json.dump(obj_dict, f)
 
     def reload(self):
-        if os.path.exists(FileStorage.__file_path):
-            with open(FileStorage.__file_path) as f:
+        from models.base_model import BaseModel
+        if os.path.exists(self.__file_path):
+            with open(self.__file_path) as f:
                 obj_dict = json.load(f)
                 [self.new(BaseModel(**obj)) for obj in obj_dict.values()]
             return

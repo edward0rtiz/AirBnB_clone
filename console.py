@@ -39,5 +39,19 @@ class HBNBCommand(cmd.Cmd):
         """Exit the shell"""
         return True
 
+    def do_create(self, args):
+        if not args:
+            print('** class name missing **')
+        elif args not in HBNBCommand.__classes:
+            print('** class doesn\'t exist **')
+        else:
+            cls_d = {'BaseModel': BaseModel, 'User': User, 'Amenity': Amenity,
+                     'City': City, 'Place': Place,
+                     'Review': Review, 'State': State}
+            new_obj = cls_d[args]()
+            new_obj.save()
+            print('{}'.format(new_obj.id))
+
+
 if __name__ == '__main__':
     HBNBCommand().cmdloop()
