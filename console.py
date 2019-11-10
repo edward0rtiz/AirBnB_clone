@@ -82,5 +82,50 @@ class HBNBCommand(cmd.Cmd):
             del obj_dict["{}.{}".format(arg[0], arg[1])]
             storage.save()
 
+    def do_all(self, args):
+        all_obj = storage.all()
+        if not args:
+            for i in all_obj.values():
+                print('{}'.format(i))
+        else:
+            arg_list = args.split()
+
+        if args and arg_list[0] in HBNBCommand.__classes:
+            all_obj = storage.all()
+            name = arg_list[0]
+            all_obj = [str(v) for k, v in all_obj.items()
+                       if name == v.__class__.__name__]
+            for i in all_obj:
+                print(i)
+
+        else:
+            print('** class doesn\'t exist **')
+
+    def do_update(self, args):
+        if not args:
+            print('** class name missing **')
+        else:
+            args_ = args.split()
+            all_obj = storage.all()
+
+        if args_[0] not in HBNBCommand.__classes:
+            print('** class doesn\'t exist **')
+        elif len(args_) < 2:
+            print('** instance id missing **')
+        else:
+            for k, v in all_obj.items():
+                name_nw = args_[0] + '.' + args_[1]
+                if name_nw == k:
+                    yes = 1
+                    if len(args) == 2:
+                        print("** attribute name missing **")
+                    elif len(args) == 3:
+                        print("** value missing **")
+                    else:
+                        setattr(v, args_[2], args_[3])
+                        storage.save()
+            if yes != 1:
+                print("** no instance found **")
+
 if __name__ == '__main__':
     HBNBCommand().cmdloop()
