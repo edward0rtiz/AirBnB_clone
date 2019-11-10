@@ -9,12 +9,12 @@ from models.city import City
 from models.place import Place
 from models.review import Review
 from models.state import State
+from shlex import split
 
 """Console to
 manage
 hbnb data
 """
-
 
 class HBNBCommand(cmd.Cmd):
     prompt = '(hbnb) '
@@ -37,7 +37,51 @@ class HBNBCommand(cmd.Cmd):
 
     def do_EOF(self, line):
         """Exit the shell"""
+        print()
         return True
+
+    def do_create(self, args):
+        if not args:
+            print('** class name missing **')
+        elif args not in HBNBCommand.__classes:
+            print('** class doesn\'t exist **')
+        else:
+            cls_d = {'BaseModel': BaseModel, 'User': User, 'Amenity': Amenity,
+                     'City': City, 'Place': Place,
+                     'Review': Review, 'State': State}
+            new_obj = cls_d[args]()
+            new_obj.save()
+            print('{}'.format(new_obj.id))
+
+    def do_show(self, line):
+        arg = line.split()
+        obj_dict = storage.all()
+        if len(arg) == 0:
+            print("** class name missing **")
+        elif arg[0] not in HBNBCommand.__classes:
+            print("** class doesn't exist **")
+        elif len(arg) == 1:
+            print("** instance id missing **")
+        elif "{}.{}".format(arg[0], arg[1]) not in obj_dict:
+            print("** no instance found **")
+        else:
+            print(obj_dict["{}.{}".format(arg[0], arg[1])])
+
+    def do_destroy(self, line):
+        arg = line.split()
+        obj_dict = storage.all()
+        if len(arg) == 0:
+            print("** class name misssing **")
+        elif arg[0] not in HBNBCommand.__classes:
+            print("** class doesn't exist **")
+        elif len(arg) == 1:
+            print("** instance id missing **")
+        elif "{}.{}".format(arg[0], arg[1]) not in obj_dict.keys():
+            print("** no instance found **")
+        else:
+            del obj_dict["{}.{}".format(arg[0], arg[1])]
+            storage.save()
+
 
 if __name__ == '__main__':
     HBNBCommand().cmdloop()
