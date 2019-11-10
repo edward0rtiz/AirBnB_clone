@@ -15,7 +15,7 @@ class FileStorage:
     def new(self, obj):
         FSobjdict = self.__objects
         object_name = obj.__class__.__name__
-        FSobjdict["{}. {}".format(object_name, obj.id)] = obj
+        FSobjdict["{}.{}".format(object_name, obj.id)] = obj
 
     def save(self):
         FSobjdict = self.__objects
