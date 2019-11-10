@@ -9,12 +9,12 @@ from models.city import City
 from models.place import Place
 from models.review import Review
 from models.state import State
+from shlex import split
 
 """Console to
 manage
 hbnb data
 """
-
 
 class HBNBCommand(cmd.Cmd):
     prompt = '(hbnb) '
@@ -37,6 +37,7 @@ class HBNBCommand(cmd.Cmd):
 
     def do_EOF(self, line):
         """Exit the shell"""
+        print()
         return True
 
     def do_create(self, args):
@@ -52,41 +53,34 @@ class HBNBCommand(cmd.Cmd):
             new_obj.save()
             print('{}'.format(new_obj.id))
 
-    def do_show(self, args):
-        if not args:
-            print('** class name missing **')
+    def do_show(self, line):
+        arg = line.split()
+        obj_dict = storage.all()
+        if len(arg) == 0:
+            print("** class name missing **")
+        elif arg[0] not in HBNBCommand.__classes:
+            print("** class doesn't exist **")
+        elif len(arg) == 1:
+            print("** instance id missing **")
+        elif "{}.{}".format(arg[0], arg[1]) not in obj_dict:
+            print("** no instance found **")
         else:
-            a_list = args.split(' ')
+            print(obj_dict["{}.{}".format(arg[0], arg[1])])
 
-        if a_list[0] not in HBNBCommand.__classes:
-            print('** class doesn\'t exist **')
-        elif len(a_list) == 1:
-            print('** instance id missing **')
+    def do_destroy(self, line):
+        arg = line.split()
+        obj_dict = storage.all()
+        if len(arg) == 0:
+            print("** class name misssing **")
+        elif arg[0] not in HBNBCommand.__classes:
+            print("** class doesn't exist **")
+        elif len(arg) == 1:
+            print("** instance id missing **")
+        elif "{}.{}".format(arg[0], arg[1]) not in obj_dict.keys():
+            print("** no instance found **")
         else:
-            all_obj = storage.all()
-            obj_name = str(a_list[0] + '.' + a_list[1])
-            if obj_name in all_obj:
-                print('{}'.format(all_obj[obj_name]))
-            else:
-                print('** no instance found **')
-
-    def do_destroy(self, args):
-        if not args:
-            print('** class name missing **')
-        else:
-            a_list = args.split(' ')
-
-            if a_list[0] not in HBNBCommand.__classes:
-                print('** class doesn\'t exist **')
-            elif len(a_list) == 1:
-                print('** instance id missing **')
-            else:
-                all_obj = storage.all()
-                obj_name = str(a_list[0] + '.' + a_list[1])
-                if obj_name in all_obj:
-                    del all_obj[obj_name]
-                else:
-                    print('** no instance found **')
+            del obj_dict["{}.{}".format(arg[0], arg[1])]
+            storage.save()
 
     def do_all(self, args):
         all_obj = storage.all()
@@ -101,7 +95,8 @@ class HBNBCommand(cmd.Cmd):
             name = arg_list[0]
             all_obj = [str(v) for k, v in all_obj.items()
                        if name == v.__class__.__name__]
-            print(all_obj)
+            for i in all_obj:
+                print(i)
 
         else:
             print('** class doesn\'t exist **')
