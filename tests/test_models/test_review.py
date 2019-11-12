@@ -17,6 +17,9 @@ class Test_Review(unittest.TestCase):
         test for testing Reviews"""
         pass
 
+    def testpublic(self):
+        self.assertEqual(str, type(Review().id))
+
 
 if __name__ == "__main__":
     unittest.main()

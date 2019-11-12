@@ -17,6 +17,9 @@ class Test_State(unittest.TestCase):
         test for testing States"""
         pass
 
+    def testpublic(self):
+        self.assertEqual(str, type(State().id))
+
 
 if __name__ == "__main__":
     unittest.main()
