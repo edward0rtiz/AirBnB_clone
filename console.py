@@ -17,7 +17,9 @@ manage
 hbnb data
 """
 
+
 class HBNBCommand(cmd.Cmd):
+    """Type class HBNBCommand CLI"""
     prompt = '(hbnb) '
     __classes = {
         'BaseModel',
@@ -29,8 +31,8 @@ class HBNBCommand(cmd.Cmd):
         'City'
     }
 
-
     def emptyline(self):
+        """Type method emptyline"""
         pass
 
     def do_quit(self, line):
@@ -43,6 +45,7 @@ class HBNBCommand(cmd.Cmd):
         return True
 
     def do_create(self, args):
+        """Type method create"""
         if not args:
             print('** class name missing **')
         elif args not in HBNBCommand.__classes:
@@ -57,7 +60,7 @@ class HBNBCommand(cmd.Cmd):
             storage.save()
 
     def do_show(self, line):
-
+        """Type method show"""
         arg = line.split()
         obj_dict = storage.all()
         if len(arg) == 0:
@@ -72,7 +75,7 @@ class HBNBCommand(cmd.Cmd):
             print(obj_dict["{}.{}".format(arg[0], arg[1])])
 
     def do_destroy(self, line):
-
+        """Type method destroy"""
         arg = line.split()
         obj_dict = storage.all()
         if len(arg) == 0:
@@ -88,6 +91,7 @@ class HBNBCommand(cmd.Cmd):
             storage.save()
 
     def do_all(self, args):
+        """Type method all"""
         all_obj = [str(v) for v in storage.all().values()]
         if not args:
             print('{}'.format(all_obj))
@@ -104,6 +108,7 @@ class HBNBCommand(cmd.Cmd):
             print('** class doesn\'t exist **')
 
     def do_update(self, args):
+        """Type method update"""
         if not args:
             print('** class name missing **')
         else:
@@ -129,8 +134,8 @@ class HBNBCommand(cmd.Cmd):
             if yes != 1:
                 print("** no instance found **")
 
-
     def do_count(self, line):
+        """Type method count"""
         arg = line.split()
         counter = 0
         for obj in storage.all().values():
@@ -139,7 +144,7 @@ class HBNBCommand(cmd.Cmd):
         print(counter)
 
     def default(self, arg):
-
+        """Type method default"""
         m_dict = {
             "all": self.do_all,
             "show": self.do_show,
@@ -158,6 +163,7 @@ class HBNBCommand(cmd.Cmd):
                     return m_dict[cmd[0]](get)
         print("*** Unknown syntax: {}".format(arg))
         return False
+
 
 if __name__ == '__main__':
     HBNBCommand().cmdloop()
