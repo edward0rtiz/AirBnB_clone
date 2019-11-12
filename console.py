@@ -88,20 +88,17 @@ class HBNBCommand(cmd.Cmd):
             storage.save()
 
     def do_all(self, args):
-        all_obj = storage.all()
+        all_obj = [str(v) for v in storage.all().values()]
         if not args:
-            for i in all_obj.values():
-                print('{}'.format(i))
-        else:
+            print('{}'.format(all_obj))
+        elif args:
             arg_list = args.split()
-
         if args and arg_list[0] in HBNBCommand.__classes:
             all_obj = storage.all()
             name = arg_list[0]
             all_obj = [str(v) for k, v in all_obj.items()
                        if name == v.__class__.__name__]
-            for i in all_obj:
-                print(i)
+            print(all_obj)
 
         else:
             print('** class doesn\'t exist **')
