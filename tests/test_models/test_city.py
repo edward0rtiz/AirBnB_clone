@@ -17,6 +17,9 @@ class Test_City(unittest.TestCase):
         test for testing cities"""
         pass
 
+    def testpublic(self):
+        self.assertEqual(str, type(City().id))
+
 
 if __name__ == "__main__":
     unittest.main()
