@@ -5,6 +5,7 @@ from uuid import uuid4
 from datetime import datetime
 from models import storage
 
+
 class BaseModel:
 
     def __init__(self, *args, **kwargs):
@@ -16,10 +17,10 @@ class BaseModel:
                 elif key != '__class__':
                     setattr(self, key, val)
         else:
-           self.id = str(uuid4())
-           self.created_at = datetime.today()
-           self.updated_at = datetime.today()
-           models.storage.new(self)
+            self.id = str(uuid4())
+            self.created_at = datetime.today()
+            self.updated_at = datetime.today()
+            models.storage.new(self)
 
     def save(self):
         self.updated_at = datetime.today()
