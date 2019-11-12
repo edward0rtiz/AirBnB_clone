@@ -10,6 +10,7 @@ from models.place import Place
 from models.review import Review
 from models.state import State
 from shlex import split
+import re
 
 """Console to
 manage
@@ -20,13 +21,14 @@ class HBNBCommand(cmd.Cmd):
     prompt = '(hbnb) '
     __classes = {
         'BaseModel',
-        'User',
         'Amenity',
-        'City',
         'Place',
+        'User',
+        'State',
         'Review',
-        'State'
+        'City'
     }
+
 
     def emptyline(self):
         pass
@@ -52,8 +54,10 @@ class HBNBCommand(cmd.Cmd):
             new_obj = cls_d[args]()
             new_obj.save()
             print('{}'.format(new_obj.id))
+            storage.save()
 
     def do_show(self, line):
+
         arg = line.split()
         obj_dict = storage.all()
         if len(arg) == 0:
@@ -68,6 +72,7 @@ class HBNBCommand(cmd.Cmd):
             print(obj_dict["{}.{}".format(arg[0], arg[1])])
 
     def do_destroy(self, line):
+
         arg = line.split()
         obj_dict = storage.all()
         if len(arg) == 0:
@@ -117,15 +122,45 @@ class HBNBCommand(cmd.Cmd):
                 name_nw = args_[0] + '.' + args_[1]
                 if name_nw == k:
                     yes = 1
-                    if len(args) == 2:
+                    if len(args_) == 2:
                         print("** attribute name missing **")
-                    elif len(args) == 3:
+                    elif len(args_) == 3:
                         print("** value missing **")
                     else:
                         setattr(v, args_[2], args_[3])
                         storage.save()
             if yes != 1:
                 print("** no instance found **")
+
+
+    def do_count(self, line):
+        arg = line.split()
+        counter = 0
+        for obj in storage.all().values():
+            if arg[0] == obj.__class__.__name__:
+                counter += 1
+        print(counter)
+
+    def default(self, arg):
+
+        m_dict = {
+            "all": self.do_all,
+            "show": self.do_show,
+            "destroy": self.do_destroy,
+            "count": self.do_count,
+            "update": self.do_update
+        }
+        m = re.search(r"\.", arg)
+        if m is not None:
+            marg = [arg[:m.span()[0]], arg[m.span()[1]:]]
+            m = re.search(r"\((.*?)\)", marg[1])
+            if m is not None:
+                cmd = [marg[1][:m.span()[0]], m.group()[1:-1]]
+                if cmd[0] in m_dict.keys():
+                    get = "{} {}".format(marg[0], cmd[1])
+                    return m_dict[cmd[0]](get)
+        print("*** Unknown syntax: {}".format(arg))
+        return False
 
 if __name__ == '__main__':
     HBNBCommand().cmdloop()
