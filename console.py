@@ -16,6 +16,7 @@ manage
 hbnb data
 """
 
+
 class HBNBCommand(cmd.Cmd):
     prompt = '(hbnb) '
     __classes = {
