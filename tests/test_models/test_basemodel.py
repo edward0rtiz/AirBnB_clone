@@ -69,6 +69,90 @@ class Test_BaseModel(unittest.TestCase):
         self.assertEqual(Bmodel.updated_at, date_time)
 
 
+class Test_save(unittest.TestCase):
+
+    @classmethod
+    def setUp(self):
+        try:
+            os.rename("file.json", "temp")
+        except IOError:
+            pass
+
+    @classmethod
+    def tearDown(self):
+        try:
+            os.remove("file.json")
+        except IOError:
+            pass
+        try:
+            os.rename("temp", "file.json")
+        except IOError:
+            pass
+
+    def testsave(self):
+        Bmodel = BaseModel()
+        Update_at = Bmodel.updated_at
+        Bmodel.save()
+        self.assertLess(Update_at, Bmodel.updated_at)
+
+    def testsave_arg(self):
+        Bmodel = BaseModel()
+        with self.assertRaises(TypeError):
+            Bmodel.save(None)
+
+    def testsave_update(self):
+        Bmodel = BaseModel()
+        Bmodel.save()
+        Bmodelid = "BaseModel." + Bmodel.id
+        with open("file.json", "r") as f:
+            self.assertIn(Bmodelid, f.read())
+
+
+class Test_to_dict(unittest.TestCase):
+
+    def testto_dict(self):
+        dt = datetime.today()
+        Bmodel = BaseModel()
+        Bmodel.id = "123"
+        Bmodel.created_at = Bmodel.updated_at = dt
+        todict = {
+            "id": "123",
+            "created_at": dt.isoformat(),
+            "updated_at": dt.isoformat(),
+            "__class__": "BaseModel"
+        }
+        self.assertDictEqual(Bmodel.to_dict(), todict)
+
+    def testtype(self):
+        Bmodel = BaseModel()
+        self.assertTrue(dict, type(Bmodel.to_dict()))
+
+    def testto_dict_arg(self):
+        Bmodel = BaseModel()
+        with self.assertRaises(TypeError):
+            Bmodel.to_dict(None)
+
+    def testto_dict_arg(self):
+        Bmodel = BaseModel()
+        self.assertNotEqual(Bmodel.to_dict(), Bmodel.__dict__)
+
+    def testto_dict_created_at(self):
+        Bmodel = BaseModel()
+        DBmodel = Bmodel.to_dict()
+        self.assertEqual(str, type(DBmodel["created_at"]))
+
+    def testto_dict_updated_at(self):
+        Bmodel = BaseModel()
+        DBmodel = Bmodel.to_dict()
+        self.assertEqual(str, type(DBmodel["updated_at"]))
+
+    def testattr(self):
+        Bmodel = BaseModel()
+        Bmodel_nm = 'Holberton'
+        Bmodel_num = 89
+        self.assertNotIn('name', Bmodel.to_dict())
+        self.assertNotIn('my_number', Bmodel.to_dict())
+
 
 if __name__ == "__main__":
     unittest.main()

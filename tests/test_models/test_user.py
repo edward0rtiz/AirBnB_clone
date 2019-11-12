@@ -17,6 +17,9 @@ class Test_Amenity(unittest.TestCase):
         test for testing users"""
         pass
 
+    def testpublic(self):
+        self.assertEqual(str, type(User().id))
+
 
 if __name__ == "__main__":
     unittest.main()

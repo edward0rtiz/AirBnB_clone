@@ -16,6 +16,7 @@ from models.state import State
 from models.review import Review
 from models.city import City
 
+
 class Test_FileStorage(unittest.TestCase):
     """ Test for
     File_Storage Class """
@@ -41,12 +42,13 @@ class Test_FileStorage(unittest.TestCase):
     def test_path(self):
         self.assertEqual(str, type(FileStorage._FileStorage__file_path))
 
+
 class Test_FileStorage_m(unittest.TestCase):
 
     @classmethod
     def SetUp(self):
         try:
-            os.rename("file.json", "copy_file.json")
+            os.rename("file.json", "temp")
         except IOError:
             pass
 
@@ -57,7 +59,7 @@ class Test_FileStorage_m(unittest.TestCase):
         except IOError:
             pass
         try:
-            os.rename("copy_file.json", "file_json")
+            os.rename("temp", "file_json")
         except IOError:
             pass
         FileStorage._FileStorage__objects = {}
@@ -69,23 +71,91 @@ class Test_FileStorage_m(unittest.TestCase):
         with self.assertRaises(TypeError):
             models.storage.all(None)
 
-    def test_new(self):
-        models.storage.new(BaseModel())
-        self.assertIn("BaseModel." + BaseModel().id, models.storage.all().keys())
-
     def test_new_all_cls(self):
+        Bmodel = BaseModel()
+        models.storage.new(Bmodel)
         models.storage.new(Amenity())
         models.storage.new(Place())
         models.storage.new(User())
         models.storage.new(State())
         models.storage.new(Review())
         models.storage.new(City())
+        self.assertIn("BaseModel." + Bmodel.id, models.storage.all().keys())
         self.assertIn("Amenity." + Amenity().id, models.storage.all().keys())
         self.assertIn("Place." + Place().id, models.storage.all().keys())
         self.assertIn("User." + User().id, models.storage.all().keys())
         self.assertIn("State." + State().id, models.storage.all().keys())
         self.assertIn("Review." + Review().id, models.storage.all().keys())
         self.assertIn("City." + City().id, models.storage.all().keys())
+
+    def testsave_args(self):
+        with self.assertRaises(TypeError):
+            models.storage.save(None)
+
+    def testnew_none(self):
+        with self.assertRaises(AttributeError):
+            models.storage.new(None)
+
+    def testnew_arg(self):
+        with self.assertRaises(TypeError):
+            models.storage.new(BaseModel(), 1)
+
+    def testsave(self):
+        Bmodel = BaseModel()
+        Am = Amenity()
+        Pl = Place()
+        Us = User()
+        St = State()
+        Rv = Review()
+        Ct = City()
+        models.storage.save()
+        models.storage.new(Bmodel)
+        models.storage.new(Am)
+        models.storage.new(Pl)
+        models.storage.new(Us)
+        models.storage.new(St)
+        models.storage.new(Rv)
+        models.storage.new(Ct)
+        tsave = ""
+        with open("file.json", "r") as f:
+            tsave = f.read()
+        self.assertIn("BaseModel." + Bmodel.id, tsave)
+        self.assertIn("Amenity." + Am.id, tsave)
+        self.assertIn("Place." + Pl.id, tsave)
+        self.assertIn("User." + Us.id, tsave)
+        self.assertIn("State." + St.id, tsave)
+        self.assertIn("Review." + Rv.id, tsave)
+        self.assertIn("City." + Ct.id, tsave)
+
+    def testreload(self):
+        with self.assertRaises(TypeError):
+            models.storage.reload(None)
+
+    def test_reload(self):
+        Bmodel = BaseModel()
+        Am = Amenity()
+        Pl = Place()
+        Us = User()
+        St = State()
+        Rv = Review()
+        Ct = City()
+        models.storage.reload()
+        models.storage.save()
+        models.storage.new(Bmodel)
+        models.storage.new(Am)
+        models.storage.new(Pl)
+        models.storage.new(Us)
+        models.storage.new(St)
+        models.storage.new(Rv)
+        models.storage.new(Ct)
+        obj = FileStorage._FileStorage__objects
+        self.assertIn("BaseModel." + Bmodel.id, obj)
+        self.assertIn("Amenity." + Am.id, obj)
+        self.assertIn("Place." + Pl.id, obj)
+        self.assertIn("User." + Us.id, obj)
+        self.assertIn("State." + St.id, obj)
+        self.assertIn("Review." + Rv.id, obj)
+        self.assertIn("City." + Ct.id, obj)
 
 
 if __name__ == "__main__":

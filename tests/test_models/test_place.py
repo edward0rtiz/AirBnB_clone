@@ -17,6 +17,9 @@ class Test_Place(unittest.TestCase):
         test for testing Places"""
         pass
 
+    def testpublic(self):
+        self.assertEqual(str, type(Place().id))
+
 
 if __name__ == "__main__":
     unittest.main()
