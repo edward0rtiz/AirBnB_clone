@@ -81,10 +81,7 @@ class Test_FileStorage_m(unittest.TestCase):
         models.storage.new(Review())
         models.storage.new(City())
         self.assertIn("BaseModel." + Bmodel.id, models.storage.all().keys())
-<<<<<<< HEAD
-=======
         self.assertIn(Bmodel, models.storage.all().values())
->>>>>>> 8a0fbac2b13a924ef174675b3ca3b7d4d4bf2712
         self.assertIn("Amenity." + Amenity().id, models.storage.all().keys())
         self.assertIn(Amenity(), models.storage.all().values())
         self.assertIn("Place." + Place().id, models.storage.all().keys())

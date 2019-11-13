@@ -18,11 +18,9 @@ class Test_User(unittest.TestCase):
         test for testing users"""
         pass
 
-<<<<<<< HEAD
     def testpublic(self):
         self.assertEqual(str, type(User().id))
 
-=======
     def testargsNone(self):
         usr = User(None)
         self.assertNotIn(None, usr.__dict__.values())
@@ -186,7 +184,6 @@ class Testuser_dict(unittest.TestCase):
         self.assertEqual("Betty", usr.name)
         self.assertIn("number", usr.to_dict())
 
->>>>>>> 8a0fbac2b13a924ef174675b3ca3b7d4d4bf2712
 
 if __name__ == "__main__":
     unittest.main()

@@ -107,8 +107,6 @@ class Test_save(unittest.TestCase):
         with open("file.json", "r") as f:
             self.assertIn(Bmodelid, f.read())
 
-<<<<<<< HEAD
-=======
     def testmulsave(self):
         Bmodel = BaseModel()
         f_updated_at = Bmodel.updated_at
@@ -118,7 +116,6 @@ class Test_save(unittest.TestCase):
         Bmodel.save()
         self.assertLess(s_updated_at, Bmodel.updated_at)
 
->>>>>>> 8a0fbac2b13a924ef174675b3ca3b7d4d4bf2712
 
 class Test_to_dict(unittest.TestCase):
 
@@ -165,14 +162,11 @@ class Test_to_dict(unittest.TestCase):
         self.assertNotIn('name', Bmodel.to_dict())
         self.assertNotIn('my_number', Bmodel.to_dict())
 
-<<<<<<< HEAD
-=======
     def testmuldict(self):
         Bmodel = BaseModel()
         with self.assertRaises(TypeError):
             Bmodel.to_dict(None)
 
->>>>>>> 8a0fbac2b13a924ef174675b3ca3b7d4d4bf2712
 
 if __name__ == "__main__":
     unittest.main()
