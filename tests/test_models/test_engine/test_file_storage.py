@@ -81,12 +81,19 @@ class Test_FileStorage_m(unittest.TestCase):
         models.storage.new(Review())
         models.storage.new(City())
         self.assertIn("BaseModel." + Bmodel.id, models.storage.all().keys())
+        self.assertIn(Bmodel, models.storage.all().values())
         self.assertIn("Amenity." + Amenity().id, models.storage.all().keys())
+        self.assertIn(Amenity(), models.storage.all().values())
         self.assertIn("Place." + Place().id, models.storage.all().keys())
+        self.assertIn(Place(), models.storage.all().values())
         self.assertIn("User." + User().id, models.storage.all().keys())
+        self.assertIn(User(), models.storage.all().values())
         self.assertIn("State." + State().id, models.storage.all().keys())
+        self.assertIn(State(), models.storage.all().values())
         self.assertIn("Review." + Review().id, models.storage.all().keys())
+        self.assertIn(Review(), models.storage.all().values())
         self.assertIn("City." + City().id, models.storage.all().keys())
+        self.assertIn(City(), models.storage.all().values())
 
     def testsave_args(self):
         with self.assertRaises(TypeError):
@@ -130,6 +137,17 @@ class Test_FileStorage_m(unittest.TestCase):
     def testreload(self):
         with self.assertRaises(TypeError):
             models.storage.reload(None)
+
+    def test_reload(self):
+        if os.path.exists("file.json"):
+            os.remove("file.json")
+        storage.save()
+        storage.reload()
+        all_objs = storage.all()
+        for obj_id in all_objs.keys():
+            obj = all_objs[obj_id]
+            self.assertTrue(isinstance(obj, BaseModel))
+            os.remove("file.json")
 
     def test_reload(self):
         Bmodel = BaseModel()
