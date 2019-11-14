@@ -75,11 +75,6 @@ class Test_User(unittest.TestCase):
         usr2 = User()
         self.assertLess(usr1.created_at, usr2.created_at)
 
-    def testmultipleuser_updated(self):
-        usr1 = User()
-        usr2 = User()
-        self.assertLess(usr1.updated_at, usr2.updated_at)
-
     def testkawargs(self):
         datet = datetime.today()
         datei = datet.isoformat()

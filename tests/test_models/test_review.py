@@ -25,6 +25,12 @@ class Test_Review(unittest.TestCase):
         self.rev.text = "666"
         self.rev.save()
 
+    def test_atrr_type_review(self):
+        """test attribute type for Review"""
+        self.assertEqual(type(self.m.place_id), str)
+        self.assertEqual(type(self.m.user_id), str)
+        self.assertEqual(type(self.m.text), str)
+
     def test_attribute_place_id(self):
         """ Tests attr """
         self.assertEqual(hasattr(self.m, "place_id"), True)
