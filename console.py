@@ -80,7 +80,7 @@ class HBNBCommand(cmd.Cmd):
         arg = line.split()
         obj_dict = storage.all()
         if len(arg) == 0:
-            print("** class name misssing **")
+            print("** class name missing **")
         elif arg[0] not in HBNBCommand.__classes:
             print("** class doesn't exist **")
         elif len(arg) == 1:
