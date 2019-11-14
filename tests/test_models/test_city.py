@@ -29,6 +29,11 @@ class Test_City(unittest.TestCase):
         self.assertTrue('id' in self.city.__dict__)
         self.assertEqual(hasattr(self.city, "name"), True)
 
+    def test_instance_City(self):
+        """checking for valid type"""
+        self.assertTrue(type(self.city.name) is str)
+        self.assertTrue(type(self.city.id) is str)
+
     def test_docstring_City(self):
         """checking docstrings"""
         self.assertIsNotNone(City.__doc__)

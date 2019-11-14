@@ -25,6 +25,10 @@ class Test_State(unittest.TestCase):
         """checking for docstrings"""
         self.assertIsNotNone(State.__doc__)
 
+    def test_instance_State(self):
+        """checking for valid type"""
+        self.assertTrue(type(self.state.name) is str)
+
     def test_to_dict_State(self):
         """test if dictionary works"""
         self.assertEqual('to_dict' in dir(self.state), True)
