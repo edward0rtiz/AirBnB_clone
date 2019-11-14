@@ -24,7 +24,7 @@ class Test_FileStorage(unittest.TestCase):
     def setUp(self):
         """ set up the
         test for testing File_Storage """
-        pass
+        FileStorage._FileStorage__file_path = "file.json"
 
     def test_noarg(self):
         self.assertEqual(FileStorage, type(FileStorage()))
