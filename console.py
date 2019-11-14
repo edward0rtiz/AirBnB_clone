@@ -104,7 +104,6 @@ class HBNBCommand(cmd.Cmd):
             yes = 1
             all_obj = storage.all()
             name = arg_list[0]
-            print('entre - {}'.format(arg_list))
             all_obj = [str(v) for k, v in all_obj.items()
                        if name == v.__class__.__name__]
             print(all_obj)
