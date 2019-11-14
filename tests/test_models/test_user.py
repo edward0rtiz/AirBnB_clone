@@ -29,6 +29,22 @@ class Test_User(unittest.TestCase):
     def testpublic(self):
         self.assertEqual(str, type(User().id))
 
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+=======
+    def testargsNone(self):
+        usr = User(None)
+        self.assertNotIn(None, usr.__dict__.values())
+
+    def testkwargsNone(self):
+        with self.assertRaises(TypeError):
+            User(id=None, created_at=None, updated_at=None)
+
+    def testpublic(self):
+        self.assertEqual(str, type(User().id))
+
+>>>>>>> c25a59633e087d69438060c642e9fc1b1df4370d
     def testnoarg(self):
         self.assertEqual(User, type(User()))
 
@@ -181,6 +197,10 @@ class Testuser_dict(unittest.TestCase):
         self.assertEqual("Betty", usr.name)
         self.assertIn("number", usr.to_dict())
 
+<<<<<<< HEAD
+=======
+>>>>>>> 389d3dfb8f0fc2d2acc351b303d762163b52d228
+>>>>>>> c25a59633e087d69438060c642e9fc1b1df4370d
 
 if __name__ == "__main__":
     unittest.main()
