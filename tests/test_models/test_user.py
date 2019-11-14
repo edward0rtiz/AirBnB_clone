@@ -18,6 +18,14 @@ class Test_User(unittest.TestCase):
         test for testing users"""
         pass
 
+    def testargsNone(self):
+        usr = User(None)
+        self.assertNotIn(None, usr.__dict__.values())
+
+    def testkwargsNone(self):
+        with self.assertRaises(TypeError):
+            User(id=None, created_at=None, updated_at=None)
+
     def testpublic(self):
         self.assertEqual(str, type(User().id))
 
