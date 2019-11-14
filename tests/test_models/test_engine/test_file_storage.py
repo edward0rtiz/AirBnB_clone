@@ -81,14 +81,8 @@ class Test_FileStorage_m(unittest.TestCase):
         models.storage.new(Review())
         models.storage.new(City())
         self.assertIn("BaseModel." + Bmodel.id, models.storage.all().keys())
-<<<<<<< HEAD
         self.assertIn(Bmodel, models.storage.all().values())
-=======
-<<<<<<< HEAD
-=======
         self.assertIn(Bmodel, models.storage.all().values())
->>>>>>> 389d3dfb8f0fc2d2acc351b303d762163b52d228
->>>>>>> c25a59633e087d69438060c642e9fc1b1df4370d
         self.assertIn("Amenity." + Amenity().id, models.storage.all().keys())
         self.assertIn(Amenity(), models.storage.all().values())
         self.assertIn("Place." + Place().id, models.storage.all().keys())
@@ -101,8 +95,6 @@ class Test_FileStorage_m(unittest.TestCase):
         self.assertIn(Review(), models.storage.all().values())
         self.assertIn("City." + City().id, models.storage.all().keys())
         self.assertIn(City(), models.storage.all().values())
-<<<<<<< HEAD
-=======
 
     def testsave_args(self):
         with self.assertRaises(TypeError):
@@ -252,7 +244,6 @@ class Test_FileStorage_m(unittest.TestCase):
         self.assertIn("State." + St.id, obj)
         self.assertIn("Review." + Rv.id, obj)
         self.assertIn("City." + Ct.id, obj)
->>>>>>> c25a59633e087d69438060c642e9fc1b1df4370d
 
     def testsave_args(self):
         with self.assertRaises(TypeError):
