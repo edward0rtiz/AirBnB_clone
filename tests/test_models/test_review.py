@@ -6,16 +6,39 @@ import os
 import unittest
 from models.review import Review
 from models.base_model import BaseModel
+from models.engine.file_storage import FileStorage
 
 
 class Test_Review(unittest.TestCase):
     """ Test for
     Review Class """
 
+    m = Review()
+
     def setUp(self):
         """set up the
         test for testing Reviews"""
-        pass
+        FileStorage._FileStorage__file_path = "test.json"
+        self.rev = Review()
+        self.rev.place_id = "666"
+        self.rev.user_id = "666"
+        self.rev.text = "666"
+        self.rev.save()
+
+    def test_attribute_place_id(self):
+        """ Tests attr """
+        self.assertEqual(hasattr(self.m, "place_id"), True)
+        self.assertEqual(hasattr(self.m, "user_id"), True)
+        self.assertEqual(hasattr(self.m, "text"), True)
+
+    def test_subcls_Review(self):
+        """test   subclass  BaseModel"""
+        self.assertTrue(issubclass(self.rev.__class__, BaseModel), True)
+        self.assertIsInstance(self.rev, Review)
+
+    def test_docstring_Review(self):
+        """checking for docstrings"""
+        self.assertIsNotNone(Review.__doc__)
 
     def testpublic(self):
         self.assertEqual(str, type(Review().id))
