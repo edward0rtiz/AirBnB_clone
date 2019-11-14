@@ -8,6 +8,7 @@ from models.amenity import Amenity
 from models.base_model import BaseModel
 from models.engine.file_storage import FileStorage
 
+
 class Test_Amenity(unittest.TestCase):
     """ Test for
     Amenity Class """

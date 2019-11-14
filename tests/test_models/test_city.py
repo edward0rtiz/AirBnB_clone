@@ -8,6 +8,7 @@ from models.city import City
 from models.base_model import BaseModel
 from models.engine.file_storage import FileStorage
 
+
 class Test_City(unittest.TestCase):
     """ Test for
     city Class """
