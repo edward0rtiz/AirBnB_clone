@@ -1,5 +1,4 @@
 <p align="center">
-  <img src="https://github.com/edward0rtiz/AirBnB_clone/tree/master/assets/hbnb_hbton.png" alt="Hbton logo">
   <img src="https://github.com/edward0rtiz/AirBnB_clone/blob/master/assets/hbnb_hbton.png" alt="Hbton logo">
 </p>
 
