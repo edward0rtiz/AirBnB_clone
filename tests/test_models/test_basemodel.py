@@ -9,6 +9,7 @@ import models
 from datetime import datetime
 from models import storage
 from models.base_model import BaseModel
+from models.engine.file_storage import FileStorage
 
 
 class Test_BaseModel(unittest.TestCase):
@@ -18,7 +19,7 @@ class Test_BaseModel(unittest.TestCase):
     def setUp(self):
         """set up the
         test for testing bae models"""
-        pass
+        FileStorage._FileStorage__file_path = "file.json"
 
     def test_noarg(self):
         self.assertEqual(BaseModel, type(BaseModel()))
