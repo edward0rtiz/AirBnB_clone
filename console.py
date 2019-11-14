@@ -113,11 +113,12 @@ class HBNBCommand(cmd.Cmd):
 
     def do_update(self, args):
         """Type method update"""
+        args_ = args.split()
         if not args:
             print('** class name missing **')
+            return
         else:
             up_dir = re.search(r"(?<=\{)([^\}]+)(?=\})", args)
-            args_ = args.split()
             all_obj = storage.all()
             yes = 0
 
