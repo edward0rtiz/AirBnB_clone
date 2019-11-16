@@ -10,5 +10,5 @@ class City(BaseModel):
     """Initialize city class
     instance
     of basemodel class"""
-    state_id = ''
-    name = ''
+    state_id = ""
+    name = ""
