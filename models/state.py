@@ -10,4 +10,5 @@ class State(BaseModel):
     """Initialize state class
     instance
     of basemodel class"""
-    name = ''
+
+    name = ""
