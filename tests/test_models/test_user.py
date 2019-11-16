@@ -7,6 +7,7 @@ import unittest
 from models.user import User
 import models
 from datetime import datetime
+from models.engine.file_storage import FileStorage
 
 
 class Test_User(unittest.TestCase):
@@ -16,7 +17,7 @@ class Test_User(unittest.TestCase):
     def setUp(self):
         """set up the
         test for testing users"""
-        pass
+        FileStorage._FileStorage__file_path = "file.json"
 
     def testargsNone(self):
         usr = User(None)
@@ -74,11 +75,6 @@ class Test_User(unittest.TestCase):
         usr2 = User()
         self.assertLess(usr1.created_at, usr2.created_at)
 
-    def testmultipleuser_updated(self):
-        usr1 = User()
-        usr2 = User()
-        self.assertLess(usr1.updated_at, usr2.updated_at)
-
     def testkawargs(self):
         datet = datetime.today()
         datei = datet.isoformat()
@@ -102,6 +98,11 @@ class Test_User(unittest.TestCase):
 
 
 class TestSave(unittest.TestCase):
+
+    def setUp(self):
+        """set up the
+        test for testing users"""
+        FileStorage._FileStorage__file_path = "file.json"
 
     @classmethod
     def SetUp(self):

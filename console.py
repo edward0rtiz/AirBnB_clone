@@ -80,7 +80,7 @@ class HBNBCommand(cmd.Cmd):
         arg = line.split()
         obj_dict = storage.all()
         if len(arg) == 0:
-            print("** class name misssing **")
+            print("** class name missing **")
         elif arg[0] not in HBNBCommand.__classes:
             print("** class doesn't exist **")
         elif len(arg) == 1:
@@ -104,7 +104,6 @@ class HBNBCommand(cmd.Cmd):
             yes = 1
             all_obj = storage.all()
             name = arg_list[0]
-            print('entre - {}'.format(arg_list))
             all_obj = [str(v) for k, v in all_obj.items()
                        if name == v.__class__.__name__]
             print(all_obj)
@@ -114,11 +113,12 @@ class HBNBCommand(cmd.Cmd):
 
     def do_update(self, args):
         """Type method update"""
+        args_ = args.split()
         if not args:
             print('** class name missing **')
+            return
         else:
             up_dir = re.search(r"(?<=\{)([^\}]+)(?=\})", args)
-            args_ = args.split()
             all_obj = storage.all()
             yes = 0
 
